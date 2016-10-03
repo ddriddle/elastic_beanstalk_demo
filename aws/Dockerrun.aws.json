@@ -1,12 +1,17 @@
 {
-  "AWSEBDockerrunVersion": "1",
-  "Image": {
-    "Name": "378517677616.dkr.ecr.us-west-2.amazonaws.com/django-app-test:latest",
-    "Update": "true"
-  },
-  "Ports": [
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
     {
-      "ContainerPort": "8080"
+      "name": "django-app-test",
+      "image": "378517677616.dkr.ecr.us-west-2.amazonaws.com/django-app-test:latest",
+      "essential": true,
+      "memory": 256,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 8080
+        }
+      ]
     }
   ]
 }

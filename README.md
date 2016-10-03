@@ -37,7 +37,7 @@ Howto deploy
 
 2) Initilize Elastic Beanstalk Command Line Tool
 	$ cd aws
-	$ eb init django-app-test -r us-west-2 -p "Docker 1.11.2"
+	$ eb init django-app-test -r us-west-2
 
 3) Deploy application
 
