@@ -14,7 +14,7 @@ Prerequisites
 Howto deploy
 ===============
 
-1) Create Amazon EC2 Container Registry Infrastructure
+0) Create Amazon EC2 Container Registry Infrastructure
 
 	$ cd terraform/ecr
 	$ terraform plan
@@ -23,22 +23,48 @@ Howto deploy
 
 1) Create Elastic Beanstalk Infrastructure
 
+	* Add your name of your AWS SSH key to the eb.tf file.
+
 	$ cd terraform/eb
 	$ terraform plan
 	$ terraform apply
 	$ cd ../..
 
-2) Upload image to ECR
+	Note the value of the rds_hostname
+
+2) Add RDS hostname to Dockerfile
+
+	Add the rds_hostname to the Dockerfile as an environment
+	variable:
+
+	ENV	   RDS_HOSTNAME		 RDS_HOSTNAME
+
+3) Build & Upload image to ECR
 
 	$ `aws ecr get-login --region us-west-2`  # Login to Amazon ECR
 	$ docker build -t django-app-test .       # Build image
 	$ docker tag django-app-test:latest 378517677616.dkr.ecr.us-west-2.amazonaws.com/django-app-test:latest
 	$ docker push 378517677616.dkr.ecr.us-west-2.amazonaws.com/django-app-test:latest
 
-2) Initilize Elastic Beanstalk Command Line Tool
+4) Initialize Elastic Beanstalk Command Line Tool
 	$ cd aws
 	$ eb init django-app-test -r us-west-2
 
-3) Deploy application
+5) Deploy application
 
 	$ eb deploy
+
+6) Create database
+
+	$ eb ssh
+        > sudo su
+	> docker ps
+        > docker exec -it 8d76f5e54cba /bin/bash
+        # source venv/bin/activate
+	(venv) # python manage.py migrate
+	(venv) # python manage.py createsuperuser
+
+Links
+==========================
+
+* http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html

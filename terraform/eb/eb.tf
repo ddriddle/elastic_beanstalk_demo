@@ -16,6 +16,18 @@ resource "aws_elastic_beanstalk_environment" "tfenvtest" {
     value = "${aws_iam_instance_profile.ecr_profile.name}"
   }
 
+#  setting {
+#    namespace = "aws:autoscaling:launchconfiguration"
+#    name = "EC2KeyName"
+#    value = "ddriddle-rockband"
+#  }
+
+  setting {
+    namespace = "aws:autoscaling:launchconfiguration"
+    name = "SecurityGroups"
+    value = "${aws_security_group.ec2-rds-sg.name}"
+  }
+
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name = "InstanceType"
