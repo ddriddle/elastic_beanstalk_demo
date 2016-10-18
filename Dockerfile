@@ -14,7 +14,7 @@ RUN        useradd uwsgi -s /bin/false
 RUN        mkdir /var/log/uwsgi
 RUN        chown -R uwsgi:uwsgi /var/log/uwsgi
 
-ADD        mysite ${APP_DIR}
+ADD        protoapp_deploy ${APP_DIR}
 ADD 	   requirements.txt ${APP_DIR}
 RUN        virtualenv venv
 RUN        . venv/bin/activate; pip install -r requirements.txt
@@ -23,10 +23,10 @@ ENV        PORT                   8080
 # AWS does not like variables...
 EXPOSE     8080
 
-ENV        DJANGO_SETTINGS_MODULE mysite.settings
+ENV        DJANGO_SETTINGS_MODULE protoapp_deploy.settings
 
 ENV        UWSGI_CHDIR            ${APP_DIR}
-ENV        UWSGI_MODULE           mysite.wsgi:application
+ENV        UWSGI_MODULE           protoapp_deploy.wsgi:application
 # ENV        UWSGI_WSGI_FILE        ??????
 ENV        UWSGI_NUM_PROCESSES    1
 ENV        UWSGI_NUM_THREADS      15
@@ -39,9 +39,10 @@ ENV        UWSGI_MASTER           TRUE
 ENV        UWSGI_VACUUM           TRUE
 ENV        UWSGI_VIRTUALENV       venv
 
+ENV	   RDS_ENGINE	  	  django.db.backends.postgresql_psycopg2
+ENV	   RDS_DB_NAME 		  postgres
 ENV	   RDS_HOSTNAME		  tf-20161018162448609406890kzt.cgfflaxjadvk.us-west-2.rds.amazonaws.com
 ENV	   RDS_PORT               5432
-ENV	   RDS_DB_NAME 		  postgres
 ENV	   RDS_USERNAME           postgres
 ENV	   RDS_PASSWORD           postgres
 
