@@ -39,10 +39,10 @@ ENV        UWSGI_MASTER           TRUE
 ENV        UWSGI_VACUUM           TRUE
 ENV        UWSGI_VIRTUALENV       venv
 
-# ENV	   RDS_HOSTNAME		  ADD_RDS_HOSTNAME_HERE
+ENV	   RDS_HOSTNAME		  protoapp-docker-db.cgfflaxjadvk.us-west-2.rds.amazonaws.com
+ENV	   RDS_PORT               5432
 ENV	   RDS_DB_NAME 		  postgres
 ENV	   RDS_USERNAME           postgres
 ENV	   RDS_PASSWORD           postgres
-ENV	   RDS_PORT               5432
 
 ENTRYPOINT [ "/usr/local/bin/uwsgi" ]
