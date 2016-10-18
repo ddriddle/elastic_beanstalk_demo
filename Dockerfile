@@ -16,8 +16,11 @@ RUN        chown -R uwsgi:uwsgi /var/log/uwsgi
 
 ADD        protoapp_deploy ${APP_DIR}
 ADD 	   requirements.txt ${APP_DIR}
+
+RUN	   apt-get update; apt-get install -y postgresql-client
+
 RUN        virtualenv venv
-RUN        . venv/bin/activate; pip install -r requirements.txt
+RUN        . venv/bin/activate; pip install --no-cache-dir -r requirements.txt
 
 ENV        PORT                   8080
 # AWS does not like variables...
