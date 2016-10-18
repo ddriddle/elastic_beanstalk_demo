@@ -11,7 +11,7 @@ Prerequisites
 	$ brew install awscli               # Mac OSX
 
 
-Howto deploy
+How to deploy
 ===============
 
 0) Create Amazon EC2 Container Registry Infrastructure
@@ -47,6 +47,7 @@ Howto deploy
 	$ docker push 378517677616.dkr.ecr.us-west-2.amazonaws.com/django-app-test:latest
 
 4) Initialize Elastic Beanstalk Command Line Tool
+
 	$ cd aws
 	$ eb init django-app-test -r us-west-2
 
