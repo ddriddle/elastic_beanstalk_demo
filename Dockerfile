@@ -21,7 +21,6 @@ RUN	   apt-get update; apt-get install -y postgresql-client
 
 RUN        virtualenv venv
 RUN        . venv/bin/activate; pip install --no-cache-dir -r requirements.txt
-RUN        . venv/bin/activate; python manage.py collectstatic
 
 ENV        PORT                   8080
 EXPOSE     ${PORT}
@@ -48,5 +47,7 @@ ENV	   RDS_HOSTNAME		  tf-20161018162448609406890kzt.cgfflaxjadvk.us-west-2.rds.
 ENV	   RDS_PORT               5432
 ENV	   RDS_USERNAME           postgres
 ENV	   RDS_PASSWORD           postgres
+
+RUN        . venv/bin/activate; python manage.py collectstatic --no-input 
 
 ENTRYPOINT [ "/usr/local/bin/uwsgi" ]
