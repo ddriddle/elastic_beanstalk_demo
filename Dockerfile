@@ -11,8 +11,8 @@ WORKDIR    ${APP_DIR}
 RUN        pip install --no-cache-dir uwsgi
 RUN        useradd uwsgi -s /bin/false
 # Why are we logging? How does logging work in EB?
-RUN        mkdir /var/log/uwsgi
-RUN        chown -R uwsgi:uwsgi /var/log/uwsgi
+#RUN       mkdir /var/log/uwsgi
+#RUN       chown -R uwsgi:uwsgi /var/log/uwsgi
 
 ADD        protoapp_deploy ${APP_DIR}
 ADD 	   requirements.txt ${APP_DIR}
@@ -21,10 +21,10 @@ RUN	   apt-get update; apt-get install -y postgresql-client
 
 RUN        virtualenv venv
 RUN        . venv/bin/activate; pip install --no-cache-dir -r requirements.txt
+RUN        . venv/bin/activate; python manage.py collectstatic
 
 ENV        PORT                   8080
-# AWS does not like variables...
-EXPOSE     8080
+EXPOSE     ${PORT}
 
 ENV        DJANGO_SETTINGS_MODULE protoapp_deploy.settings
 
@@ -32,13 +32,11 @@ ENV        UWSGI_CHDIR            ${APP_DIR}
 ENV        UWSGI_STATIC_MAP	  /static=/var/app/static
 
 ENV        UWSGI_MODULE           protoapp_deploy.wsgi:application
-# ENV        UWSGI_WSGI_FILE        ??????
 ENV        UWSGI_NUM_PROCESSES    1
 ENV        UWSGI_NUM_THREADS      15
 ENV        UWSGI_UID              uwsgi
 ENV        UWSGI_GID              uwsgi
-# Why do we need/want a log file? Docker apps should log to stderr.
-ENV        UWSGI_LOG_FILE         /var/log/uwsgi/uwsgi.log
+
 ENV        UWSGI_HTTP_SOCKET      :${PORT}
 ENV        UWSGI_MASTER           TRUE
 ENV        UWSGI_VACUUM           TRUE
