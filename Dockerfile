@@ -29,13 +29,15 @@ EXPOSE     8080
 ENV        DJANGO_SETTINGS_MODULE protoapp_deploy.settings
 
 ENV        UWSGI_CHDIR            ${APP_DIR}
+ENV        UWSGI_STATIC_MAP	  /static=/var/app/static
+
 ENV        UWSGI_MODULE           protoapp_deploy.wsgi:application
 # ENV        UWSGI_WSGI_FILE        ??????
 ENV        UWSGI_NUM_PROCESSES    1
 ENV        UWSGI_NUM_THREADS      15
 ENV        UWSGI_UID              uwsgi
 ENV        UWSGI_GID              uwsgi
-# Why do we need/want a log file? Docker apps should logsto stderr.
+# Why do we need/want a log file? Docker apps should log to stderr.
 ENV        UWSGI_LOG_FILE         /var/log/uwsgi/uwsgi.log
 ENV        UWSGI_HTTP_SOCKET      :${PORT}
 ENV        UWSGI_MASTER           TRUE
