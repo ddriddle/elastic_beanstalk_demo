@@ -25,7 +25,7 @@ resource "aws_elastic_beanstalk_environment" "tfenvtest" {
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name = "SecurityGroups"
-    value = "${aws_security_group.ec2-rds-sg.name}"
+    value = "${aws_security_group.ec2-rds-sg.name}, ${aws_security_group.ec2-cache-sg.name}"
   }
 
   setting {

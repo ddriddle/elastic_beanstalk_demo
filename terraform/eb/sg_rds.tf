@@ -20,3 +20,26 @@ resource "aws_security_group" "rds-ec2-sg" {
         security_groups = [ "${aws_security_group.ec2-rds-sg.id}" ]
     }
 }
+
+resource "aws_security_group" "ec2-cache-sg" {
+    name_prefix = "ec2-cache-sg"
+    description = "ec2 instances joined to this group can access Postgres"
+
+    egress {
+        from_port       = "11211"
+        to_port         = "11211"
+        protocol        = "tcp"
+    }
+}
+
+resource "aws_security_group" "cache-ec2-sg" {
+    name_prefix = "cache-ec2-sg"
+    description = "Allows cache-ec2-sg members access to elasticache"
+
+    ingress {
+        from_port       = "11211"
+        to_port         = "11211"
+        protocol        = "tcp"
+        security_groups = [ "${aws_security_group.ec2-cache-sg.id}" ]
+    }
+}
