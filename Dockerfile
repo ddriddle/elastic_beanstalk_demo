@@ -17,7 +17,7 @@ RUN        useradd uwsgi -s /bin/false
 ADD        protoapp_deploy ${APP_DIR}
 ADD 	   requirements.txt ${APP_DIR}
 
-RUN	   apt-get update; apt-get install -y postgresql-client
+RUN	   apt-get update; apt-get install -y memcached postgresql-client
 
 RUN        virtualenv venv
 RUN        . venv/bin/activate; pip install --no-cache-dir -r requirements.txt
@@ -26,6 +26,9 @@ ENV        PORT                   8080
 EXPOSE     ${PORT}
 
 ENV        DJANGO_SETTINGS_MODULE protoapp_deploy.settings
+
+ENV	   MEMCACHED_HOSTNAME	  django-app-test.x0zvy6.cfg.usw2.cache.amazonaws.com
+ENV	   MEMCACHED_PORT	  11211
 
 ENV        UWSGI_CHDIR            ${APP_DIR}
 ENV        UWSGI_STATIC_MAP	  /static=/var/app/static

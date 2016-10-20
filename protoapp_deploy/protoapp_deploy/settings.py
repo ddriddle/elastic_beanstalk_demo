@@ -78,6 +78,19 @@ TEMPLATES = [
 WSGI_APPLICATION = 'protoapp.wsgi.application'
 
 
+# Cache
+
+CACHES = {
+    'default' : {
+        'BACKEND'   : 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION'  : os.environ['MEMCACHED_HOSTNAME'] + ':' + os.environ['MEMCACHED_PORT'],
+    }
+}
+
+#   Set session engine to use cache.
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 

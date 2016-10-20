@@ -5,4 +5,8 @@ resource "aws_elasticache_cluster" "default" {
     port = 11211
     num_cache_nodes = 1
     parameter_group_name = "default.memcached1.4"
+    security_group_ids =
+        [
+        "${aws_security_group.cache-ec2-sg.id}",
+        ]
 }
