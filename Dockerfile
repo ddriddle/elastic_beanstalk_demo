@@ -30,6 +30,13 @@ ENV        DJANGO_SETTINGS_MODULE protoapp_deploy.settings
 ENV	   MEMCACHED_HOSTNAME	  django-app-test.x0zvy6.cfg.usw2.cache.amazonaws.com
 ENV	   MEMCACHED_PORT	  11211
 
+ENV	   RDS_ENGINE	  	  django.db.backends.postgresql_psycopg2
+ENV	   RDS_DB_NAME 		  postgres
+ENV	   RDS_HOSTNAME		  tf-20161018162448609406890kzt.cgfflaxjadvk.us-west-2.rds.amazonaws.com
+ENV	   RDS_PORT               5432
+ENV	   RDS_USERNAME           postgres
+ENV	   RDS_PASSWORD           postgres
+
 ENV        UWSGI_CHDIR            ${APP_DIR}
 ENV        UWSGI_STATIC_MAP	  /static=/var/app/static
 
@@ -43,13 +50,6 @@ ENV        UWSGI_HTTP_SOCKET      :${PORT}
 ENV        UWSGI_MASTER           TRUE
 ENV        UWSGI_VACUUM           TRUE
 ENV        UWSGI_VIRTUALENV       venv
-
-ENV	   RDS_ENGINE	  	  django.db.backends.postgresql_psycopg2
-ENV	   RDS_DB_NAME 		  postgres
-ENV	   RDS_HOSTNAME		  tf-20161018162448609406890kzt.cgfflaxjadvk.us-west-2.rds.amazonaws.com
-ENV	   RDS_PORT               5432
-ENV	   RDS_USERNAME           postgres
-ENV	   RDS_PASSWORD           postgres
 
 RUN        . venv/bin/activate; python manage.py collectstatic --no-input 
 

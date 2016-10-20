@@ -4,8 +4,8 @@ bcrypt==3.1.0
 cffi==1.8.2
 django==1.9.9
 djangorestframework==3.4.6
-pycparser==2.14
-six==1.10.0
-psycopg2==2.6.2
 protoapp==20161004.152831
+psycopg2==2.6.2
+pycparser==2.14
 python-memcached==1.58
+six==1.10.0
