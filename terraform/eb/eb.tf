@@ -36,8 +36,8 @@ resource "aws_elastic_beanstalk_environment" "tfenvtest" {
 
   setting {
     namespace = "aws:elasticbeanstalk:environment"
-    name = "EnvironmentType"
-    value = "SingleInstance"
+    name = "LoadBalancerType"
+    value = "LoadBalanced"
   }
 }
 
