@@ -7,6 +7,9 @@ resource "aws_security_group" "ec2-rds-sg" {
         to_port         = "5432"
         protocol        = "tcp"
     }
+  tags {
+    Name = "roma-protoapp"
+  }
 }
 
 resource "aws_security_group" "rds-ec2-sg" {
@@ -19,6 +22,9 @@ resource "aws_security_group" "rds-ec2-sg" {
         protocol        = "tcp"
         security_groups = [ "${aws_security_group.ec2-rds-sg.id}" ]
     }
+  tags {
+    Name = "roma-protoapp"
+  }
 }
 
 resource "aws_security_group" "ec2-cache-sg" {
@@ -30,6 +36,9 @@ resource "aws_security_group" "ec2-cache-sg" {
         to_port         = "11211"
         protocol        = "tcp"
     }
+  tags {
+    Name = "roma-protoapp"
+  }
 }
 
 resource "aws_security_group" "cache-ec2-sg" {
@@ -42,4 +51,7 @@ resource "aws_security_group" "cache-ec2-sg" {
         protocol        = "tcp"
         security_groups = [ "${aws_security_group.ec2-cache-sg.id}" ]
     }
+  tags {
+    Name = "roma-protoapp"
+  }
 }

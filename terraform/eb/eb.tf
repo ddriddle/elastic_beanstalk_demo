@@ -86,6 +86,9 @@ resource "aws_elastic_beanstalk_environment" "tfenvtest" {
     name = "EnvironmentType"
     value = "LoadBalanced"
   }
+  tags {
+    Name = "roma-protoapp"
+  }
 }
 
 resource "aws_iam_instance_profile" "ecr_profile" {
