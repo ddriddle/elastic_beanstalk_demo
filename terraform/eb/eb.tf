@@ -6,8 +6,7 @@ resource "aws_elastic_beanstalk_application" "django-app-test" {
 resource "aws_elastic_beanstalk_environment" "tfenvtest" {
   name = "development"
   application = "${aws_elastic_beanstalk_application.django-app-test.name}"
-  solution_stack_name = "64bit Amazon Linux 2016.03 v2.1.7 running Multi-container Docker 1.11.2 (Generic)"
-
+  solution_stack_name = "64bit Amazon Linux 2016.03 v2.1.8 running Multi-container Docker 1.11.2 (Generic)"
   tier = "WebServer"
 
   setting {
