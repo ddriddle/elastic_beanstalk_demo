@@ -91,13 +91,13 @@ resource "aws_elastic_beanstalk_environment" "tfenvtest" {
 }
 
 resource "aws_iam_instance_profile" "ecr_profile" {
-    name = "elastic-beanstalk-web-ecr-profile"
-    roles = ["${aws_iam_role.eb-web-ecr-ec2-role.name}"]
+  name = "elastic-beanstalk-web-ecr-profile"
+  roles = ["${aws_iam_role.eb-web-ecr-ec2-role.name}"]
 }
 
 resource "aws_iam_role" "eb-web-ecr-ec2-role" {
-    name = "elastic-beanstalk-web-ecr-ec2-role"
-    assume_role_policy = <<EOF
+  name = "elastic-beanstalk-web-ecr-ec2-role"
+  assume_role_policy = <<EOF
 {
   "Version": "2008-10-17",
   "Statement": [
@@ -114,16 +114,16 @@ EOF
 }
 
 resource "aws_iam_role_policy_attachment" "eb-ecr-readonly-attach" {
-    role = "${aws_iam_role.eb-web-ecr-ec2-role.name}"
-    policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+  role = "${aws_iam_role.eb-web-ecr-ec2-role.name}"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
 
 resource "aws_iam_role_policy_attachment" "eb-web-tier-attach" {
-    role = "${aws_iam_role.eb-web-ecr-ec2-role.name}"
-    policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier"
+  role = "${aws_iam_role.eb-web-ecr-ec2-role.name}"
+  policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier"
 }
 
 resource "aws_iam_role_policy_attachment" "eb-ecs-attach" {
-    role = "${aws_iam_role.eb-web-ecr-ec2-role.name}"
-    policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkMulticontainerDocker"
+  role = "${aws_iam_role.eb-web-ecr-ec2-role.name}"
+  policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkMulticontainerDocker"
 }
