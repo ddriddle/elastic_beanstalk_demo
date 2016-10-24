@@ -2,8 +2,8 @@
   "AWSEBDockerrunVersion": 2,
   "containerDefinitions": [
     {
-      "name": "django-app-test",
-      "image": "378517677616.dkr.ecr.us-east-2.amazonaws.com/django-app-test:latest",
+      "name": "django-protoapp",
+      "image": "378517677616.dkr.ecr.us-east-2.amazonaws.com/django-protoapp:latest",
       "essential": true,
       "memory": 256,
       "portMappings": [

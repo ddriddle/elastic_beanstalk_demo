@@ -42,14 +42,14 @@ How to deploy
 3) Build & Upload image to ECR
 
 	$ `aws ecr get-login --region us-west-2`  # Login to Amazon ECR
-	$ docker build -t django-app-test .       # Build image
-	$ docker tag django-app-test:latest 378517677616.dkr.ecr.us-west-2.amazonaws.com/django-app-test:latest
-	$ docker push 378517677616.dkr.ecr.us-west-2.amazonaws.com/django-app-test:latest
+	$ docker build -t django-protoapp .       # Build image
+	$ docker tag django-protoapp:latest 378517677616.dkr.ecr.us-west-2.amazonaws.com/django-protoapp:latest
+	$ docker push 378517677616.dkr.ecr.us-west-2.amazonaws.com/django-protoapp:latest
 
 4) Initialize Elastic Beanstalk Command Line Tool
 
 	$ cd aws
-	$ eb init django-app-test -r us-west-2
+	$ eb init django-protoapp -r us-west-2
 
 5) Deploy application
 

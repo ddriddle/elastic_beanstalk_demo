@@ -27,7 +27,7 @@ EXPOSE     ${PORT}
 
 ENV        DJANGO_SETTINGS_MODULE protoapp_deploy.settings
 
-ENV	   MEMCACHED_HOSTNAME	  django-app-test.x0zvy6.cfg.usw2.cache.amazonaws.com
+ENV	   MEMCACHED_HOSTNAME	  django-protoapp.x0zvy6.cfg.usw2.cache.amazonaws.com
 ENV	   MEMCACHED_PORT	  11211
 
 ENV	   RDS_ENGINE	  	  django.db.backends.postgresql_psycopg2

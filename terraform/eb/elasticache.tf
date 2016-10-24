@@ -1,5 +1,5 @@
 resource "aws_elasticache_cluster" "default" {
-  cluster_id = "django-app-test"
+  cluster_id = "django-protoapp"
   engine = "memcached"
   node_type = "cache.t2.micro"
   port = 11211

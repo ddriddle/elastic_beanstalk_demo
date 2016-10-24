@@ -1,11 +1,11 @@
-resource "aws_elastic_beanstalk_application" "django-app-test" {
-  name = "django-app-test"
+resource "aws_elastic_beanstalk_application" "django-protoapp" {
+  name = "django-protoapp"
   description = "A very simple django app running in a container."
 }
 
 resource "aws_elastic_beanstalk_environment" "tfenvtest" {
   name = "development"
-  application = "${aws_elastic_beanstalk_application.django-app-test.name}"
+  application = "${aws_elastic_beanstalk_application.django-protoapp.name}"
   solution_stack_name = "64bit Amazon Linux 2016.03 v2.1.8 running Multi-container Docker 1.11.2 (Generic)"
   tier = "WebServer"
 
