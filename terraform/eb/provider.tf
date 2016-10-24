@@ -4,6 +4,6 @@ variable "aws_profile" {
 }
 
 provider "aws" {
-    region  = "us-west-2"
-    profile = "${var.aws_profile}"
+  region    = "us-east-2"
+  profile = "${var.aws_profile}"
 }

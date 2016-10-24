@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "django-app-test",
-      "image": "378517677616.dkr.ecr.us-west-2.amazonaws.com/django-app-test:latest",
+      "image": "378517677616.dkr.ecr.us-east-2.amazonaws.com/django-app-test:latest",
       "essential": true,
       "memory": 256,
       "portMappings": [
