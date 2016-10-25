@@ -32,7 +32,7 @@ ENV	   MEMCACHED_PORT	  11211
 
 ENV	   RDS_ENGINE	  	  django.db.backends.postgresql_psycopg2
 ENV	   RDS_DB_NAME 		  postgres
-ENV	   RDS_HOSTNAME		  tf-20161025153317442722763v6s.c69fdpo3cfsd.us-east-2.rds.amazonaws.com
+ENV	   RDS_HOSTNAME		  tf-20161025203414476615199f3m.c69fdpo3cfsd.us-east-2.rds.amazonaws.com
 ENV	   RDS_PORT               5432
 ENV	   RDS_USERNAME           postgres
 ENV	   RDS_PASSWORD           postgres
