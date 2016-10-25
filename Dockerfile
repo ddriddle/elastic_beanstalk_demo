@@ -27,12 +27,12 @@ EXPOSE     ${PORT}
 
 ENV        DJANGO_SETTINGS_MODULE protoapp_deploy.settings
 
-ENV	   MEMCACHED_HOSTNAME	  django-protoapp.x0zvy6.cfg.usw2.cache.amazonaws.com
+ENV	   MEMCACHED_HOSTNAME	  django-protoapp.mmkzfj.cfg.use2.cache.amazonaws.com
 ENV	   MEMCACHED_PORT	  11211
 
 ENV	   RDS_ENGINE	  	  django.db.backends.postgresql_psycopg2
 ENV	   RDS_DB_NAME 		  postgres
-ENV	   RDS_HOSTNAME		  tf-20161021213529628786154ihm.cgfflaxjadvk.us-west-2.rds.amazonaws.com
+ENV	   RDS_HOSTNAME		  tf-20161025153317442722763v6s.c69fdpo3cfsd.us-east-2.rds.amazonaws.com
 ENV	   RDS_PORT               5432
 ENV	   RDS_USERNAME           postgres
 ENV	   RDS_PASSWORD           postgres

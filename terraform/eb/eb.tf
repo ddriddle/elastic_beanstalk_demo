@@ -85,6 +85,11 @@ resource "aws_elastic_beanstalk_environment" "tfenvtest" {
     name = "EnvironmentType"
     value = "LoadBalanced"
   }
+  setting {
+    namespace = "aws:elasticbeanstalk:environment"
+    name = "ServiceRole"
+    value = "aws-elasticbeanstalk-service-role"
+  }
   tags {
     Name = "roma-protoapp"
   }
