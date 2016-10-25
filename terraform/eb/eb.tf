@@ -33,51 +33,57 @@ resource "aws_elastic_beanstalk_environment" "tfenvtest" {
     value = "t2.nano"
   }
 
-  setting {
-    namespace = "aws:autoscaling:trigger"
-    name = "MeasureName"
-    value = "CPUUtilization"
-  }
-  setting {
-    namespace = "aws:autoscaling:trigger"
-    name = "Statistic"
-    value = "Average"
-  }
-  setting {
-    namespace = "aws:autoscaling:trigger"
-    name = "Unit"
-    value = "Percent"
-  }
-  setting {
-    namespace = "aws:autoscaling:trigger"
-    name = "Period"
-    value = "5"
-  }
-  setting {
-    namespace = "aws:autoscaling:trigger"
-    name = "BreachDuration"
-    value = "5"
-  }
-  setting {
-    namespace = "aws:autoscaling:trigger"
-    name = "UpperThreshold"
-    value = "60"
-  }
-  setting {
-    namespace = "aws:autoscaling:trigger"
-    name = "UpperBreachScaleIncrement"
-    value = "20%"
-  }
-  setting {
-    namespace = "aws:autoscaling:trigger"
-    name = "LowerThreshold"
-    value = "20"
-  }
-  setting {
-    namespace = "aws:autoscaling:trigger"
-    name = "LowerBreachScaleIncrement"
-    value = "-20%"
-  }
+   # Enable load balancer's listener on port 80
+   setting {
+     namespace = "aws:elb:listener:80"
+     name = "ListenerEnabled"
+     value = "true"
+   }
+#  setting {
+#   namespace = "aws:autoscaling:trigger"
+#   name = "MeasureName"
+#   value = "CPUUtilization"
+#  }
+#  setting {
+#   namespace = "aws:autoscaling:trigger"
+#   name = "Statistic"
+#   value = "Average"
+#  }
+#  setting {
+#   namespace = "aws:autoscaling:trigger"
+#   name = "Unit"
+#   value = "Percent"
+#  }
+#  setting {
+#   namespace = "aws:autoscaling:trigger"
+#   name = "Period"
+#   value = "5"
+#  }
+#  setting {
+#   namespace = "aws:autoscaling:trigger"
+#   name = "BreachDuration"
+#   value = "5"
+#  }
+#  setting {
+#   namespace = "aws:autoscaling:trigger"
+#   name = "UpperThreshold"
+#   value = "60"
+#  }
+#  setting {
+#   namespace = "aws:autoscaling:trigger"
+#   name = "UpperBreachScaleIncrement"
+#   value = "20%"
+#  }
+#  setting {
+#   namespace = "aws:autoscaling:trigger"
+#   name = "LowerThreshold"
+#   value = "20"
+#  }
+#  setting {
+#   namespace = "aws:autoscaling:trigger"
+#   name = "LowerBreachScaleIncrement"
+#   value = "-20%"
+#  }
 #####
 
   setting {
