@@ -33,12 +33,34 @@ resource "aws_elastic_beanstalk_environment" "tfenvtest" {
     value = "t2.nano"
   }
 
-   # Enable load balancer's listener on port 80
-   setting {
-     namespace = "aws:elb:listener:80"
-     name = "ListenerEnabled"
-     value = "true"
-   }
+  # Enable load balancer's listener on port 80
+  setting {
+    namespace = "aws:elb:listener:80"
+    name = "ListenerEnabled"
+    value = "true"
+  }
+
+  # Specify protocol used by ELB's listener.
+  setting {
+    namespace = "aws:elb:listener:80"
+    name = "ListenerProtocol"
+    value = "HTTP"
+  }
+
+  # Specify protocol used by ELB's instance.
+  setting {
+    namespace = "aws:elb:listener:80"
+    name = "InstanceProtocol"
+    value = "HTTP"
+  }
+
+  # Specify port used by ELB's instance.
+  setting {
+    namespace = "aws:elb:listener:80"
+    name = "InstancePort"
+    value = "80"
+  }
+
 #  setting {
 #   namespace = "aws:autoscaling:trigger"
 #   name = "MeasureName"
