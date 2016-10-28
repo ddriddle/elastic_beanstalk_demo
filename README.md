@@ -1,3 +1,5 @@
+[![Build Status](https://drone.sandbox.aws.illinois.edu/api/badges/techservices/elastic_beanstalk_demo/status.svg)](https://drone.sandbox.aws.illinois.edu/techservices/elastic_beanstalk_demo)
+
 Prerequisites
 ==========================
 
