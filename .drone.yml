@@ -1,5 +1,5 @@
 build:
   image: python:2.7
   commands:
-    - python manage.py test
-
+    - pip install -r requirements.txt
+    - cd protoapp_deploy; - python manage.py test
