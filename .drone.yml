@@ -9,6 +9,7 @@ pipeline:
       - aws sts get-caller-identity
       - export PASSWORD=`aws ecr get-login --region us-east-2 | sed 's/docker login -u AWS -p //;s_ none https://617683844790.dkr.ecr.us-east-2.amazonaws.com__'`
       - export
+      - export
   s3:
     image: plugins/s3
     region: us-east-2
