@@ -7,6 +7,7 @@ pipeline:
       - pip install awscli
       - aws ecr get-login --region us-east-2
       - aws sts get-caller-identity
+      - export PASSWORD=`aws ecr get-login --region us-east-2 | sed 's/docker login -u AWS -p //;s_ none https://617683844790.dkr.ecr.us-east-2.amazonaws.com__'`
       - export
   s3:
     image: plugins/s3
@@ -15,7 +16,11 @@ pipeline:
     source: aws/Dockerrun.aws.json
     target: django-app-test/develop.json
     strip_prefix: aws/Dockerrun.aws.json
-  ecr:
+#  ecr:
+   docker:
+    registry: https://617683844790.dkr.ecr.us-east-2.amazonaws.com
+    username: AWS
+    password: "${PASSWORD}"
     image: plugins/ecr
     repo: 617683844790.dkr.ecr.us-east-2.amazonaws.com/django-app-test
     tags:
