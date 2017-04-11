@@ -7,14 +7,13 @@ pipeline:
       - pip install awscli
       - aws ecr get-login --region us-east-2
       - export
-#      - aws sts get-session-token
   s3:
     image: plugins/s3
     region: us-east-2
     bucket: drone-us-east-2-617683844790
     source: aws/Dockerrun.aws.json
     target: django-app-test/develop.json
-    strip_prefix: true
+    strip_prefix: aws/Dockerrun.aws.json
   ecr:
     image: plugins/ecr
     repo: 617683844790.dkr.ecr.us-east-2.amazonaws.com/django-app-test
