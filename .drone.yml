@@ -20,10 +20,10 @@ pipeline:
     strip_prefix: aws/Dockerrun.aws.json
   ecr:
     image: plugins/ecr
-    access_key: "$AWS_ACCESS_KEY_ID"
-    secret_key: "$AWS_SECRET_ACCESS_KEY"
     repo: 617683844790.dkr.ecr.us-east-2.amazonaws.com/django-app-test
     tags:
       - latest
       - 1.0.1
       - 1.0
+#    access_key: "$AWS_ACCESS_KEY_ID"
+#    secret_key: "$AWS_SECRET_ACCESS_KEY"
