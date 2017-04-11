@@ -3,30 +3,31 @@ resource "aws_elastic_beanstalk_application" "django-app-test" {
   description = "A very simple django app running in a container."
 }
 
+# https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts.platforms.html
 resource "aws_elastic_beanstalk_environment" "tfenvtest" {
-  name = "development"
+  name = "devel"
   application = "${aws_elastic_beanstalk_application.django-app-test.name}"
-  solution_stack_name = "64bit Amazon Linux 2016.03 v2.1.7 running Multi-container Docker 1.11.2 (Generic)"
-
-  tier = "WebServer"
-
-  setting {
-    namespace = "aws:autoscaling:launchconfiguration"
-    name = "IamInstanceProfile"
-    value = "${aws_iam_instance_profile.ecr_profile.name}"
-  }
-
-  setting {
-    namespace = "aws:autoscaling:launchconfiguration"
-    name = "InstanceType"
-    value = "t2.nano"
-  }
-
-  setting {
-    namespace = "aws:elasticbeanstalk:environment"
-    name = "EnvironmentType"
-    value = "SingleInstance"
-  }
+  solution_stack_name = "64bit Amazon Linux 2016.09 v2.5.2 running Multi-container Docker 1.12.6 (Generic)"
+#
+#  tier = "WebServer"
+#
+#  setting {
+#    namespace = "aws:autoscaling:launchconfiguration"
+#    name = "IamInstanceProfile"
+#    value = "${aws_iam_instance_profile.ecr_profile.name}"
+#  }
+#
+#  setting {
+#    namespace = "aws:autoscaling:launchconfiguration"
+#    name = "InstanceType"
+#    value = "t2.nano"
+#  }
+#
+#  setting {
+#    namespace = "aws:elasticbeanstalk:environment"
+#    name = "EnvironmentType"
+#    value = "SingleInstance"
+#  }
 }
 
 resource "aws_iam_instance_profile" "ecr_profile" {

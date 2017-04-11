@@ -4,3 +4,10 @@ pipeline:
     commands:
       - pip install pep8
       - pep8 --ignore=E501 mysite
+  ecr:
+    image: plugins/ecr
+    repo: 617683844790.dkr.ecr.us-east-2.amazonaws.com/django-app-test
+    tags:
+      - latest
+      - 1.0.1
+      - 1.0
