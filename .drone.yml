@@ -10,6 +10,7 @@ pipeline:
 #      - aws sts get-session-token
   s3:
     image: plugins/s3
+    region: us-east-2
     bucket: drone-us-east-2-617683844790
     source: aws/Dockerrun.aws.json
     target: django-app-test/develop.json
