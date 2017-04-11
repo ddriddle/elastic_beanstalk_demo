@@ -6,6 +6,7 @@ pipeline:
       - pep8 --ignore=E501 mysite
       - pip install awscli
       - aws ecr get-login --region us-east-2
+      - aws sts get-session-token
 #  s3:
 #    image: plugins/s3
 #    bucket: drone-us-east-2-617683844790
