@@ -17,11 +17,10 @@ pipeline:
     source: aws/Dockerrun.aws.json
     target: django-app-test/develop.json
     strip_prefix: aws/Dockerrun.aws.json
-#  ecr:
-   docker:
+  docker:
     registry: https://617683844790.dkr.ecr.us-east-2.amazonaws.com
     username: AWS
-    password: "${PASSWORD}"
+    password: "$PASSWORD"
     image: plugins/ecr
     repo: 617683844790.dkr.ecr.us-east-2.amazonaws.com/django-app-test
     tags:
