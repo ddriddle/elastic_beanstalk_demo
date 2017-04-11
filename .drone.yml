@@ -6,6 +6,11 @@ pipeline:
       - pep8 --ignore=E501 mysite
       - pip install awscli
       - aws ecr get-login --region us-east-2
+  s3:
+    image: plugins/s3
+    bucket: drone-us-east-2-617683844790
+    source: aws/Dockerrun.aws.json
+    target: django-app-test/develop.json
   ecr:
     image: plugins/ecr
     repo: 617683844790.dkr.ecr.us-east-2.amazonaws.com/django-app-test
