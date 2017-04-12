@@ -14,6 +14,8 @@ pipeline:
   s3:
     image: plugins/s3
     region: us-east-2
+    access_key: $AWS_ACCESS_KEY_ID
+    secret_key: $AWS_SECRET_ACCESS_KEY
     bucket: drone-us-east-2-617683844790
     source: aws/Dockerrun.aws.json
     target: django-app-test/develop.json
