@@ -7,7 +7,7 @@ pipeline:
       - pip install awscli
       - aws ecr get-login --region us-east-2
       - aws sts get-caller-identity
-      - export PASSWORD="`aws ecr get-login --region us-east-2 | sed 's/docker login -u AWS -p //;s_ none https://617683844790.dkr.ecr.us-east-2.amazonaws.com__'`"
+      - export PASSWORD="`aws ecr get-login --region us-east-2 | sed 's/docker login -u AWS -p //;s_ -e none https://617683844790.dkr.ecr.us-east-2.amazonaws.com__'`"
       - export AWS_ACCESS_KEY_ID="`curl http://169.254.169.254/latest/meta-data/iam/security-credentials/DroneInstanceRole | grep AccessKeyId | awk -F '"' '{print $4}'`"
       - export AWS_SECRET_ACCESS_KEY="`curl http://169.254.169.254/latest/meta-data/iam/security-credentials/DroneInstanceRole |grep SecretAccessKey | awk -F '"' '{print $4}'`"
       - export
@@ -20,8 +20,8 @@ pipeline:
     strip_prefix: aws/Dockerrun.aws.json
   ecr:
     image: plugins/ecr
-    access_key: "$AWS_ACCESS_KEY_ID"
-    secret_key: "$AWS_SECRET_ACCESS_KEY"
+    access_key: $AWS_ACCESS_KEY_ID
+    secret_key: $AWS_SECRET_ACCESS_KEY
     repo: 617683844790.dkr.ecr.us-east-2.amazonaws.com/django-app-test
     tags:
       - latest
