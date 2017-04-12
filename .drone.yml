@@ -16,7 +16,7 @@ pipeline:
      image: plugins/docker
      username: AWS
      password: $PASSWORD
-     registry: https://617683844790.dkr.ecr.us-east-2.amazonaws.com
+     registry: 617683844790.dkr.ecr.us-east-2.amazonaws.com
      repo: 617683844790.dkr.ecr.us-east-2.amazonaws.com/django-app-test
      tags:
        - latest
