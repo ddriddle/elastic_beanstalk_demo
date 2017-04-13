@@ -24,3 +24,5 @@ pipeline:
       - latest
       - 1.0.1
       - 1.0
+    environment:
+      - DOCKER_LAUNCH_DEBUG=true
