@@ -1,9 +1,10 @@
-resource "aws_ecr_repository" "ecr" {
+resource "aws_ecr_repository" "default" {
   name = "django-app-test"
 }
 
+# http://docs.aws.amazon.com/AmazonECR/latest/userguide/RepositoryPolicyExamples.html
 resource "aws_ecr_repository_policy" "foopolicy" {
-  repository = "${aws_ecr_repository.ecr.name}"
+  repository = "${aws_ecr_repository.default.name}"
 
   policy = <<EOF
 {

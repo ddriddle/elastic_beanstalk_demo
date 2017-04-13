@@ -1,3 +1,14 @@
+Drone secrets
+==========================
+
+$ cd terraform/ecr
+$ drone secret add ddriddle/elastic_beanstalk_demo ACCESS_KEY `terraform output AWS_ACCESS_KEY_ID`
+$ drone secret add ddriddle/elastic_beanstalk_demo SECRET_KEY `terraform output AWS_SECRET_ACCESS_KEY`
+
+
+
+
+
 Prerequisites
 ==========================
 
