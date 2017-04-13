@@ -5,24 +5,18 @@ pipeline:
       - pip install pep8
       - pep8 --ignore=E501 mysite
       - pip install awscli
-      - aws ecr get-login --region us-east-2
-      - aws sts get-caller-identity
-      - export
-  s3:
-    image: plugins/s3
-    region: us-east-2
-    bucket: drone-us-east-2-617683844790
-    source: aws/Dockerrun.aws.json
-    target: django-app-test/develop.json
-    strip_prefix: aws/Dockerrun.aws.json
   ecr:
     image: plugins/ecr
-    access_key: "${ACCESS_KEY}"
-    secret_key: "${SECRET_KEY}"
+    region: us-east-2
     repo: 617683844790.dkr.ecr.us-east-2.amazonaws.com/django-app-test
     tags:
       - latest
       - 1.0.1
       - 1.0
-    environment:
-      - DOCKER_LAUNCH_DEBUG=true
+#  s3:
+#    image: plugins/s3
+#    region: us-east-2
+#    bucket: drone-us-east-2-617683844790
+#    source: aws/Dockerrun.aws.json
+#    target: django-app-test/develop.json
+#    strip_prefix: aws/Dockerrun.aws.json
