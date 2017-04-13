@@ -10,25 +10,32 @@ resource "aws_iam_access_key" "default" {
 }
 
 resource "aws_iam_user_policy" "ecr_wo" {
-  name = "test"
+  name = "ecrWriteOnly"
   user = "${aws_iam_user.default.name}"
 
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "ecr:GetDownloadUrlForLayer",
-        "ecr:PutImage",
-        "ecr:InitiateLayerUpload",
-        "ecr:UploadLayerPart",
-        "ecr:CompleteLayerUpload"
-      ],
-      "Effect": "Allow",
-      "Resource": "${aws_ecr_repository.default.arn}"
-    }
-  ]
+  policy = "${data.aws_iam_policy_document.ecr_wo.json}"
 }
-EOF
+
+data "aws_iam_policy_document" "ecr_wo" {
+  statement {
+    actions = [
+      "ecr:GetDownloadUrlForLayer",
+      "ecr:PutImage",
+      "ecr:InitiateLayerUpload",
+      "ecr:UploadLayerPart",
+      "ecr:CompleteLayerUpload",
+    ]
+
+    resources = [
+      "${aws_ecr_repository.default.arn}"
+    ]
+  }
+
+  statement {
+    actions = [
+      "ecr:GetAuthorizationToken",
+    ]
+
+    resources = [ "*" ]
+  }
 }
