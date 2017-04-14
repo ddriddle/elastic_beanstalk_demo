@@ -8,62 +8,42 @@ resource "aws_elastic_beanstalk_environment" "tfenvtest" {
   name = "devel"
   application = "${aws_elastic_beanstalk_application.django-app-test.name}"
   solution_stack_name = "64bit Amazon Linux 2016.09 v2.5.2 running Multi-container Docker 1.12.6 (Generic)"
-#
-#  tier = "WebServer"
-#
-#  setting {
-#    namespace = "aws:autoscaling:launchconfiguration"
-#    name = "IamInstanceProfile"
-#    value = "${aws_iam_instance_profile.ecr_profile.name}"
-#  }
-#
-#  setting {
-#    namespace = "aws:autoscaling:launchconfiguration"
-#    name = "InstanceType"
-#    value = "t2.nano"
-#  }
-#
-#  setting {
-#    namespace = "aws:elasticbeanstalk:environment"
-#    name = "EnvironmentType"
-#    value = "SingleInstance"
-#  }
-}
 
-resource "aws_iam_instance_profile" "ecr_profile" {
-    name = "elastic-beanstalk-web-ecr-profile"
-    roles = ["${aws_iam_role.eb-web-ecr-ec2-role.name}"]
-}
+  tier = "WebServer"
 
-resource "aws_iam_role" "eb-web-ecr-ec2-role" {
-    name = "elastic-beanstalk-web-ecr-ec2-role"
-    assume_role_policy = <<EOF
-{
-  "Version": "2008-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-EOF
-}
+  setting {
+    namespace = "aws:autoscaling:launchconfiguration"
+    name = "IamInstanceProfile"
+    value = "aws-elasticbeanstalk-ec2-role"
+  }
 
-resource "aws_iam_role_policy_attachment" "eb-ecr-readonly-attach" {
-    role = "${aws_iam_role.eb-web-ecr-ec2-role.name}"
-    policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-}
+  setting {
+    namespace = "aws:elasticbeanstalk:environment"
+    name = "ServiceRole"
+    value = "aws-elasticbeanstalk-service-role"
+  }
 
-resource "aws_iam_role_policy_attachment" "eb-web-tier-attach" {
-    role = "${aws_iam_role.eb-web-ecr-ec2-role.name}"
-    policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier"
-}
+  setting {
+    namespace = "aws:autoscaling:launchconfiguration"
+    name = "InstanceType"
+    value = "t2.nano"
+  }
 
-resource "aws_iam_role_policy_attachment" "eb-ecs-attach" {
-    role = "${aws_iam_role.eb-web-ecr-ec2-role.name}"
-    policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkMulticontainerDocker"
+  setting {
+    namespace = "aws:elasticbeanstalk:environment"
+    name = "EnvironmentType"
+    value = "SingleInstance"
+  }
+
+  setting {
+    namespace = "aws:ec2:vpc"
+    name      = "VPCId"
+    value     = "${data.aws_vpc.selected.id}"
+  }
+
+  setting {
+    namespace = "aws:ec2:vpc"
+    name      = "Subnets"
+    value     = "${data.aws_subnet.public1-a-net.id}"
+  }
 }

@@ -1,4 +1,5 @@
 *.zip
 
+.terraform
 terraform.tfstate
 terraform.tfstate.*
