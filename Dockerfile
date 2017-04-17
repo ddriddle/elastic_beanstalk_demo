@@ -1,4 +1,4 @@
-FROM       python:2.7
+FROM       python:2.7-alpine
 # https://docs.djangoproject.com/en/1.10/howto/deployment/wsgi/uwsgi/
 # https://uwsgi.readthedocs.io/en/latest/Configuration.html
 # http://uwsgi-docs.readthedocs.io/en/latest/Options.html

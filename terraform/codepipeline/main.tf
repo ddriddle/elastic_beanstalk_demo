@@ -1,6 +1,6 @@
-resource "aws_codepipeline" "foo" {
+resource "aws_codepipeline" "default" {
   name     = "django-app-test-develop"
-  role_arn = "${aws_iam_role.foo.arn}"
+  role_arn = "${aws_iam_role.default.arn}"
 
   artifact_store {
     location = "${aws_s3_bucket.default.bucket}"
@@ -26,7 +26,7 @@ resource "aws_codepipeline" "foo" {
   }
 
   stage {
-    name = "Beta"
+    name = "Stage"
 
     action {
       name            = "develop"
@@ -39,7 +39,7 @@ resource "aws_codepipeline" "foo" {
 
       configuration {
         ApplicationName = "django-app-test"
-        EnvironmentName = "develop"
+        EnvironmentName = "devel"
       }
     }
 

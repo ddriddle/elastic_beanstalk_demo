@@ -1,6 +1,6 @@
 # http://docs.aws.amazon.com/codepipeline/latest/userguide/iam-identity-based-access-control.html#how-to-custom-role
 
-resource "aws_iam_role" "foo" {
+resource "aws_iam_role" "default" {
   name = "codePipelineServiceRole"
 
   assume_role_policy = <<EOF
@@ -22,7 +22,7 @@ EOF
 # http://docs.aws.amazon.com/codepipeline/latest/userguide/iam-identity-based-access-control.html#view-default-service-role-policy
 resource "aws_iam_role_policy" "codepipeline_policy" {
   name = "codepipeline_policy"
-  role = "${aws_iam_role.foo.id}"
+  role = "${aws_iam_role.default.id}"
 
   policy = <<EOF
 {

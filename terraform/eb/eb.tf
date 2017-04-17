@@ -1,15 +1,20 @@
-resource "aws_elastic_beanstalk_application" "django-app-test" {
+# https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts.platforms.html
+
+resource "aws_elastic_beanstalk_application" "default" {
   name = "django-app-test"
   description = "A very simple django app running in a container."
 }
 
-# https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts.platforms.html
 resource "aws_elastic_beanstalk_environment" "tfenvtest" {
   name = "devel"
-  application = "${aws_elastic_beanstalk_application.django-app-test.name}"
-  solution_stack_name = "64bit Amazon Linux 2016.09 v2.5.2 running Multi-container Docker 1.12.6 (Generic)"
+  application = "${aws_elastic_beanstalk_application.default.name}"
+  template_name = "${aws_elastic_beanstalk_configuration_template.default.name}"
+}
 
-  tier = "WebServer"
+resource "aws_elastic_beanstalk_configuration_template" "default" {
+  name = "default"
+  application = "${aws_elastic_beanstalk_application.default.name}"
+  solution_stack_name = "64bit Amazon Linux 2016.09 v2.5.2 running Multi-container Docker 1.12.6 (Generic)"
 
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
