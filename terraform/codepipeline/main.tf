@@ -19,7 +19,7 @@ resource "aws_codepipeline" "default" {
       output_artifacts = ["MyApp"]
 
       configuration {
-        S3Bucket    = "elasticbeanstalk-${data.aws_region.current.name}-${data.aws_caller_identity.current.account_id}"
+        S3Bucket    = "drone-${data.aws_region.current.name}-${data.aws_caller_identity.current.account_id}"
         S3ObjectKey = "django-app-test/develop.json"
       }
     }
