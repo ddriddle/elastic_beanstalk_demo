@@ -1,11 +1,11 @@
 # http://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#pipeline-requirements
 
 resource "aws_codepipeline" "default" {
-  name     = "django-app-test-develop"
-  role_arn = "${aws_iam_role.default.arn}"
+  name     = "${var.name}"
+  role_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.role_name}"
 
   artifact_store {
-    location = "${aws_s3_bucket.default.bucket}"
+    location = "${var.inBucket == "" ? format("codepipeline-%s-%s", data.aws_region.current.name, data.aws_caller_identity.current.account_id) : var.inBucket}"
     type     = "S3"
   }
 
@@ -13,16 +13,18 @@ resource "aws_codepipeline" "default" {
     name = "Source"
 
     action {
-      name             = "Source"
       category         = "Source"
+      name             = "Source"
       owner            = "AWS"
       provider         = "S3"
       version          = "1"
+
       output_artifacts = ["MyApp"]
 
+      # TODO change develop.json to source.zip ???
       configuration {
-        S3Bucket    = "drone-${data.aws_region.current.name}-${data.aws_caller_identity.current.account_id}"
-        S3ObjectKey = "django-app-test/develop.json"
+        S3Bucket    = "${var.outBucket == "" ? format("drone-%s-%s", data.aws_region.current.name, data.aws_caller_identity.current.account_id) : var.outBucket}"
+        S3ObjectKey = "${var.name}/develop.json"
       }
     }
   }
@@ -31,17 +33,18 @@ resource "aws_codepipeline" "default" {
     name = "Stage"
 
     action {
-      name            = "develop"
+      category        = "Deploy"
+      name            = "Stage"
       owner           = "AWS"
       provider        = "ElasticBeanstalk"
       run_order       = "1"
       version         = "1"
-      category        = "Deploy"
+
       input_artifacts = ["MyApp"]
 
       configuration {
-        ApplicationName = "django-app-test"
-        EnvironmentName = "devel"
+        ApplicationName = "${var.ApplicationName == "" ? var.name : var.ApplicationName}"
+        EnvironmentName = "${var.stageEnv}"
       }
     }
 
@@ -50,24 +53,28 @@ resource "aws_codepipeline" "default" {
       name      = "QAA"
       owner     = "AWS"
       provider  = "Manual"
-      version   = "1"
       run_order = "2"
+      version   = "1"
 
       configuration {
-        ExternalEntityLink = "http://develop.camzdqpswk.us-east-2.elasticbeanstalk.com"
+        CustomData         = "${var.qaaComment}"
+        ExternalEntityLink = "${var.url}"
+        NotificationArn    = "${aws_sns_topic.stage.arn}"
       }
     }
 
     action {
-      name      = "Product_Owner"
       category  = "Approval"
+      name      = "Product_Owner"
       owner     = "AWS"
       provider  = "Manual"
-      version   = "1"
       run_order = "3"
+      version   = "1"
 
       configuration {
-        ExternalEntityLink = "http://develop.camzdqpswk.us-east-2.elasticbeanstalk.com"
+        CustomData         = "${var.ownerComment}"
+        ExternalEntityLink = "${var.url}"
+        NotificationArn    = "${aws_sns_topic.prod.arn}"
       }
     }
   }
@@ -77,18 +84,17 @@ resource "aws_codepipeline" "default" {
 
     action {
       category = "Deploy"
-
-      input_artifacts = ["MyApp"]
-
       name      = "Deploy"
       owner     = "AWS"
       provider  = "ElasticBeanstalk"
-      version   = "1"
       run_order = "1"
+      version   = "1"
+
+      input_artifacts = ["MyApp"]
 
       configuration {
-        ApplicationName = "django-app-test"
-        EnvironmentName = "production"
+        ApplicationName = "${var.ApplicationName == "" ? var.name : var.ApplicationName}"
+        EnvironmentName = "${var.prodEnv}"
       }
     }
   }

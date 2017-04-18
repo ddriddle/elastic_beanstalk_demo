@@ -1,11 +1,11 @@
 # https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts.platforms.html
 
 resource "aws_elastic_beanstalk_application" "default" {
-  name = "django-app-test"
+  name = "${var.name}"
   description = "A very simple django app running in a container."
 }
 
-resource "aws_elastic_beanstalk_environment" "dev" {
+resource "aws_elastic_beanstalk_environment" "stage" {
   name = "devel"
   application = "${aws_elastic_beanstalk_application.default.name}"
   template_name = "${aws_elastic_beanstalk_configuration_template.default.name}"
