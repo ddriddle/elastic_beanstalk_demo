@@ -1,3 +1,5 @@
+# http://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#pipeline-requirements
+
 resource "aws_codepipeline" "default" {
   name     = "django-app-test-develop"
   role_arn = "${aws_iam_role.default.arn}"
@@ -44,11 +46,25 @@ resource "aws_codepipeline" "default" {
     }
 
     action {
-      category = "Approval"
-      name     = "QAA"
-      owner    = "AWS"
-      provider = "Manual"
-      version  = "1"
+      category  = "Approval"
+      name      = "QAA"
+      owner     = "AWS"
+      provider  = "Manual"
+      version   = "1"
+      run_order = "2"
+
+      configuration {
+        ExternalEntityLink = "http://develop.camzdqpswk.us-east-2.elasticbeanstalk.com"
+      }
+    }
+
+    action {
+      name      = "Product_Owner"
+      category  = "Approval"
+      owner     = "AWS"
+      provider  = "Manual"
+      version   = "1"
+      run_order = "3"
 
       configuration {
         ExternalEntityLink = "http://develop.camzdqpswk.us-east-2.elasticbeanstalk.com"
@@ -60,26 +76,15 @@ resource "aws_codepipeline" "default" {
     name = "Production"
 
     action {
-      name     = "Product_Owner"
-      category = "Approval"
-      owner    = "AWS"
-      provider = "Manual"
-      version  = "1"
-
-      configuration {
-        ExternalEntityLink = "http://develop.camzdqpswk.us-east-2.elasticbeanstalk.com"
-      }
-    }
-
-    action {
       category = "Deploy"
 
       input_artifacts = ["MyApp"]
 
-      name     = "Deploy"
-      owner    = "AWS"
-      provider = "ElasticBeanstalk"
-      version  = "1"
+      name      = "Deploy"
+      owner     = "AWS"
+      provider  = "ElasticBeanstalk"
+      version   = "1"
+      run_order = "1"
 
       configuration {
         ApplicationName = "django-app-test"

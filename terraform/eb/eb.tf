@@ -5,8 +5,14 @@ resource "aws_elastic_beanstalk_application" "default" {
   description = "A very simple django app running in a container."
 }
 
-resource "aws_elastic_beanstalk_environment" "tfenvtest" {
+resource "aws_elastic_beanstalk_environment" "dev" {
   name = "devel"
+  application = "${aws_elastic_beanstalk_application.default.name}"
+  template_name = "${aws_elastic_beanstalk_configuration_template.default.name}"
+}
+
+resource "aws_elastic_beanstalk_environment" "prod" {
+  name = "production"
   application = "${aws_elastic_beanstalk_application.default.name}"
   template_name = "${aws_elastic_beanstalk_configuration_template.default.name}"
 }
