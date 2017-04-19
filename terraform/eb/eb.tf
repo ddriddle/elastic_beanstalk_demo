@@ -6,7 +6,7 @@ resource "aws_elastic_beanstalk_application" "default" {
 }
 
 resource "aws_elastic_beanstalk_environment" "stage" {
-  name = "stage"
+  name = "${var.stage_name}"
   application = "${aws_elastic_beanstalk_application.default.name}"
   template_name = "${aws_elastic_beanstalk_configuration_template.default.name}"
 
@@ -14,7 +14,7 @@ resource "aws_elastic_beanstalk_environment" "stage" {
 }
 
 resource "aws_elastic_beanstalk_environment" "prod" {
-  name = "production"
+  name = "${var.prod_name}"
   application = "${aws_elastic_beanstalk_application.default.name}"
   template_name = "${aws_elastic_beanstalk_configuration_template.default.name}"
 
