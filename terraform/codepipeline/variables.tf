@@ -33,7 +33,7 @@ variable "stageEnv" {
   description = <<EOF
 The Name of the Elastic Beanstalk Environment to use for staging
 EOF
-  default    = "Stage"
+  default    = "stage"
 }
 
 variable qaaComment {
@@ -57,7 +57,7 @@ variable "prodEnv" {
 The Name of the Elastic Beanstalk Environment to use for production
 deployments
 EOF
-  default    = "Production"
+  default    = "production"
 }
 
 variable "url" {

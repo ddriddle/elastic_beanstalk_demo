@@ -1,7 +1,5 @@
 Need to figure out layout / buckets
   * Document this
   * Think about it...
-
-Turn versioning on drone bucket? Should we? Did we?
-
 * What perms do we need / want on ECR?
+* Think about renaming Drone bucket. It is the input for CodePipeline...
