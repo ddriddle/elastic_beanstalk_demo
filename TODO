@@ -4,3 +4,4 @@ Need to figure out layout / buckets
 * What perms do we need / want on ECR?
 * Think about renaming Drone bucket. It is the input for CodePipeline...
 * How do we apply a "version label" to a source bundle?
+* Dockerrun.aws.json needs to be a template! Pin each version to a paticular Docker image!
