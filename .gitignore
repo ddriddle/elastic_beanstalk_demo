@@ -1,4 +1,7 @@
+*.pyc
+*.pyo
 *.zip
+db.sqlite3
 
 .terraform
 terraform.tfstate
