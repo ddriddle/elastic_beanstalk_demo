@@ -3,20 +3,7 @@
 resource "aws_iam_role" "default" {
   name = "codePipelineServiceRole"
 
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "codepipeline.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-EOF
+  assume_role_policy = "${data.aws_iam_policy_document.codepipeline-trust.json}"
 }
 
 # http://docs.aws.amazon.com/codepipeline/latest/userguide/iam-identity-based-access-control.html#view-default-service-role-policy

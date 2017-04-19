@@ -7,18 +7,7 @@ resource "aws_iam_instance_profile" "eb" {
 
 resource "aws_iam_role" "eb" {
     name = "aws-elasticbeanstalk-ec2-role"
-    assume_role_policy = "${data.aws_iam_policy_document.ec2.json}"
-}
-
-data "aws_iam_policy_document" "ec2" {
-  statement {
-    actions = [ "sts:AssumeRole" ]
-
-    principals {
-      type = "Service"
-      identifiers = ["ec2.amazonaws.com"]
-    }
-  }
+    assume_role_policy = "${data.aws_iam_policy_document.ec2-trust.json}"
 }
 
 resource "aws_iam_role_policy_attachment" "eb-ecr-readonly-attach" {

@@ -2,24 +2,7 @@
 
 resource "aws_iam_role" "eb-service" {
   name = "aws-elasticbeanstalk-service-role"
-  assume_role_policy = "${data.aws_iam_policy_document.eb-service.json}"
-}
-
-data "aws_iam_policy_document" "eb-service" {
-  statement {
-    actions = [ "sts:AssumeRole" ]
-
-    principals {
-      type = "Service"
-      identifiers = ["elasticbeanstalk.amazonaws.com"]
-    }
-
-    condition {
-      test     = "StringEquals"
-      variable = "sts:ExternalId"
-      values   = ["elasticbeanstalk"]
-    }
-  }
+  assume_role_policy = "${data.aws_iam_policy_document.eb-trust.json}"
 }
 
 resource "aws_iam_role_policy_attachment" "eb-service-ehealth-attach" {
