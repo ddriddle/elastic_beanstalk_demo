@@ -2,4 +2,6 @@ Need to figure out layout / buckets
   * Document this
   * Think about it...
 
-Turn versioning on drone bucket
+Turn versioning on drone bucket? Should we? Did we?
+
+* What perms do we need / want on ECR?

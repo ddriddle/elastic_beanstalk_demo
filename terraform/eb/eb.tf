@@ -2,19 +2,23 @@
 
 resource "aws_elastic_beanstalk_application" "default" {
   name = "${var.name}"
-  description = "A very simple django app running in a container."
+  description = "${var.description}"
 }
 
 resource "aws_elastic_beanstalk_environment" "stage" {
-  name = "devel"
+  name = "stage"
   application = "${aws_elastic_beanstalk_application.default.name}"
   template_name = "${aws_elastic_beanstalk_configuration_template.default.name}"
+
+  tags = "${merge(map("Environment", "stage"), var.tags)}"
 }
 
 resource "aws_elastic_beanstalk_environment" "prod" {
   name = "production"
   application = "${aws_elastic_beanstalk_application.default.name}"
   template_name = "${aws_elastic_beanstalk_configuration_template.default.name}"
+
+  tags = "${merge(map("Environment", "production"), var.tags)}"
 }
 
 resource "aws_elastic_beanstalk_configuration_template" "default" {
