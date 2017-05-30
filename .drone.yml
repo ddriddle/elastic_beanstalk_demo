@@ -2,7 +2,7 @@ pipeline:
   s3:
     image: plugins/s3
     region: us-east-2
-    bucket: drone-us-east-2-617683844790
+    bucket: drone-us-east-2-224588347132
     source: aws/Dockerrun.aws.json
     target: django-app-test/develop.json
     strip_prefix: aws/Dockerrun.aws.json
