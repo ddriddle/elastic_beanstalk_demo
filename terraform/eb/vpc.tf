@@ -4,12 +4,12 @@ data "aws_vpc" "selected" {
   }
 }
 
-#module "subnet" {
-#  source = "../enterprise_subnet_ids"
-#
-#  vpc_short_name = "${var.vpc_short_name}"
-#  type           = "public1"
-#}
+module "subnet" {
+  source = "../enterprise_subnet_ids"
+
+  vpc_short_name = "${var.vpc_short_name}"
+  type           = "public1"
+}
 
 data "aws_subnet" "public1-a-net" {
   vpc_id = "${data.aws_vpc.selected.id}"
